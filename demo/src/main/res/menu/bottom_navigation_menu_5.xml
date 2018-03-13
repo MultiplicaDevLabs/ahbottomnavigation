@@ -20,4 +20,7 @@
         android:title="@string/menu_5"
         android:icon="@drawable/ic_maps_place" />
 
+    <item
+        android:title="@string/menu_6"
+        android:icon="@drawable/ic_maps_local_attraction" />
 </menu>

@@ -75,10 +75,16 @@ public class DemoActivity extends AppCompatActivity {
 			AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_1, R.drawable.ic_apps_black_24dp, R.color.color_tab_1);
 			AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab_2, R.drawable.ic_maps_local_bar, R.color.color_tab_2);
 			AHBottomNavigationItem item3 = new AHBottomNavigationItem(R.string.tab_3, R.drawable.ic_maps_local_restaurant, R.color.color_tab_3);
+			AHBottomNavigationItem item4 = new AHBottomNavigationItem(R.string.tab_4, R.drawable.ic_maps_local_restaurant, R.color.color_tab_3);
+			AHBottomNavigationItem item5 = new AHBottomNavigationItem(R.string.tab_5, R.drawable.ic_maps_local_restaurant, R.color.color_tab_3);
+			AHBottomNavigationItem item6 = new AHBottomNavigationItem(R.string.tab_6, R.drawable.ic_maps_local_restaurant, R.color.color_tab_3);
 
 			bottomNavigationItems.add(item1);
 			bottomNavigationItems.add(item2);
 			bottomNavigationItems.add(item3);
+			bottomNavigationItems.add(item4);
+			bottomNavigationItems.add(item5);
+			bottomNavigationItems.add(item6);
 
 			bottomNavigation.addItems(bottomNavigationItems);
 		}
@@ -257,9 +263,13 @@ public class DemoActivity extends AppCompatActivity {
 				AHBottomNavigationItem item5 = new AHBottomNavigationItem(getString(R.string.tab_5),
 						ContextCompat.getDrawable(this, R.drawable.ic_maps_place),
 						ContextCompat.getColor(this, R.color.color_tab_5));
-
+				AHBottomNavigationItem item6 = new AHBottomNavigationItem(getString(R.string.tab_6),
+						ContextCompat.getDrawable(this, R.drawable.ic_maps_local_attraction),
+						ContextCompat.getColor(this, R.color.color_tab_6));
 				bottomNavigation.addItem(item4);
 				bottomNavigation.addItem(item5);
+				bottomNavigation.addItem(item6);
+
 				bottomNavigation.setNotification("1", 3);
 			} else {
 				bottomNavigation.removeAllItems();
