@@ -67,7 +67,7 @@ public class AHBottomNavigation extends FrameLayout {
 	private static String TAG = "AHBottomNavigation";
     private static final String EXCEPTION_INDEX_OUT_OF_BOUNDS = "The position (%d) is out of bounds of the items (%d elements)";
 	private static final int MIN_ITEMS = 3;
-	private static final int MAX_ITEMS = 6;
+	private static final int MAX_ITEMS = 5;
 
 	// Listener
 	private OnTabSelectedListener tabSelectedListener;
@@ -86,7 +86,7 @@ public class AHBottomNavigation extends FrameLayout {
 	private boolean selectedBackgroundVisible = false;
 	private boolean translucentNavigationEnabled;
 	private List<AHNotification> notifications = AHNotification.generateEmptyList(MAX_ITEMS);
-	private Boolean[] itemsEnabledStates = {true, true, true, true, true, true};
+	private Boolean[] itemsEnabledStates = {true, true, true, true, true};
 	private boolean isBehaviorTranslationSet = false;
 	private int currentItem = 0;
 	private int currentColor = 0;
@@ -465,13 +465,23 @@ public class AHBottomNavigation extends FrameLayout {
 						updateItems(itemIndex, true);
 					}
 				});
-				icon.setImageDrawable(AHHelper.getTintDrawable(items.get(i).getDrawable(context),
-						current ? itemActiveColor : itemInactiveColor, forceTint));
+				if (!items.get(i).isColorful) {
+					Drawable drawable = AHHelper.getTintDrawable(items.get(i).getDrawable(context),
+							current ? itemActiveColor : itemInactiveColor, forceTint);
+					icon.setImageDrawable(drawable);
+				}else{
+					icon.setImageDrawable(items.get(i).getDrawable(context));
+				}
 				title.setTextColor(current ? itemActiveColor : itemInactiveColor);
 				view.setSoundEffectsEnabled(soundEffectsEnabled);
 			} else {
-				icon.setImageDrawable(AHHelper.getTintDrawable(items.get(i).getDrawable(context),
-						itemDisableColor, forceTint));
+				if (!items.get(i).isColorful) {
+					Drawable drawable = AHHelper.getTintDrawable(items.get(i).getDrawable(context),
+							itemDisableColor, forceTint);
+					icon.setImageDrawable(drawable);
+				}else{
+					icon.setImageDrawable(items.get(i).getDrawable(context));
+				}
 				title.setTextColor(itemDisableColor);
 			}
 
@@ -582,8 +592,16 @@ public class AHBottomNavigation extends FrameLayout {
 			}
 
 			if (itemsEnabledStates[i]) {
-				icon.setImageDrawable(AHHelper.getTintDrawable(items.get(i).getDrawable(context),
-						currentItem == i ? itemActiveColor : itemInactiveColor, forceTint));
+
+
+				if (!items.get(i).isColorful) {
+					Drawable drawable = AHHelper.getTintDrawable(items.get(i).getDrawable(context),
+							currentItem == i ? itemActiveColor : itemInactiveColor, forceTint);
+					icon.setImageDrawable(drawable);
+				}else{
+					icon.setImageDrawable(items.get(i).getDrawable(context));
+				}
+
 				title.setTextColor(currentItem == i ? itemActiveColor : itemInactiveColor);
 				title.setAlpha(currentItem == i ? 1 : 0);
 				view.setOnClickListener(new OnClickListener() {
@@ -594,8 +612,14 @@ public class AHBottomNavigation extends FrameLayout {
 				});
 				view.setSoundEffectsEnabled(soundEffectsEnabled);
 			} else {
-				icon.setImageDrawable(AHHelper.getTintDrawable(items.get(i).getDrawable(context),
-						itemDisableColor, forceTint));
+
+				if (!items.get(i).isColorful) {
+					Drawable drawable = AHHelper.getTintDrawable(items.get(i).getDrawable(context),
+							itemDisableColor, forceTint);
+					icon.setImageDrawable(drawable);
+				}else{
+					icon.setImageDrawable(items.get(i).getDrawable(context));
+				}
 				title.setTextColor(itemDisableColor);
 				title.setAlpha(0);
 			}
@@ -667,9 +691,10 @@ public class AHBottomNavigation extends FrameLayout {
 				AHHelper.updateLeftMargin(notification, notificationInactiveMarginLeft, notificationActiveMarginLeft);
 				AHHelper.updateTextColor(title, itemInactiveColor, itemActiveColor);
 				AHHelper.updateTextSize(title, inactiveSize, activeSize);
-				AHHelper.updateDrawableColor(context, items.get(itemIndex).getDrawable(context), icon,
-						itemInactiveColor, itemActiveColor, forceTint);
-
+				if(!items.get(itemIndex).isColorful) {
+					AHHelper.updateDrawableColor(context, items.get(itemIndex).getDrawable(context), icon,
+							itemInactiveColor, itemActiveColor, forceTint);
+				}
 				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && colored) {
 
 					int finalRadius = Math.max(getWidth(), getHeight());
@@ -728,8 +753,11 @@ public class AHBottomNavigation extends FrameLayout {
 				AHHelper.updateLeftMargin(notification, notificationActiveMarginLeft, notificationInactiveMarginLeft);
 				AHHelper.updateTextColor(title, itemActiveColor, itemInactiveColor);
 				AHHelper.updateTextSize(title, activeSize, inactiveSize);
-				AHHelper.updateDrawableColor(context, items.get(currentItem).getDrawable(context), icon,
-						itemActiveColor, itemInactiveColor, forceTint);
+				if (!items.get(currentItem).isColorful) {
+					AHHelper.updateDrawableColor(context, items.get(currentItem).getDrawable(context), icon,
+							itemActiveColor, itemInactiveColor, forceTint);
+				}
+
 			}
 		}
 
@@ -794,9 +822,10 @@ public class AHBottomNavigation extends FrameLayout {
 				}
 
 				AHHelper.updateAlpha(title, 0, 1);
-				AHHelper.updateDrawableColor(context, items.get(itemIndex).getDrawable(context), icon,
-						itemInactiveColor, itemActiveColor, forceTint);
-
+				if(!items.get(itemIndex).isColorful) {
+					AHHelper.updateDrawableColor(context, items.get(itemIndex).getDrawable(context), icon,
+							itemInactiveColor, itemActiveColor, forceTint);
+				}
 				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && colored) {
 					int finalRadius = Math.max(getWidth(), getHeight());
 					int cx = (int) views.get(itemIndex).getX() + views.get(itemIndex).getWidth() / 2;
@@ -861,8 +890,10 @@ public class AHBottomNavigation extends FrameLayout {
 				}
 
 				AHHelper.updateAlpha(title, 1, 0);
-				AHHelper.updateDrawableColor(context, items.get(currentItem).getDrawable(context), icon,
-						itemActiveColor, itemInactiveColor, forceTint);
+				if(!items.get(currentItem).isColorful ) {
+					AHHelper.updateDrawableColor(context, items.get(currentItem).getDrawable(context), icon,
+							itemActiveColor, itemInactiveColor, forceTint);
+				}
 			}
 		}
 

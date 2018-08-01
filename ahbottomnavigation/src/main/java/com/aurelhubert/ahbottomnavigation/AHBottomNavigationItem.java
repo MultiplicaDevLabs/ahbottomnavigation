@@ -30,7 +30,8 @@ public class AHBottomNavigationItem {
 	private
 	@ColorRes
 	int colorRes = 0;
-	
+	public boolean isColorful = false;
+
 	/**
 	 * Constructor
 	 *

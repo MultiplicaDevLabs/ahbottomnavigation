@@ -72,7 +72,7 @@ public class DemoFragment extends Fragment {
 		final SwitchCompat switchTranslucentNavigation = view.findViewById(R.id.fragment_demo_translucent_navigation);
 		
 		switchColored.setChecked(demoActivity.isBottomNavigationColored());
-		switchFiveItems.setChecked(demoActivity.getBottomNavigationNbItems() == 6);
+		switchFiveItems.setChecked(demoActivity.getBottomNavigationNbItems() == 5);
 		switchTranslucentNavigation.setChecked(getActivity()
 				.getSharedPreferences("shared", Context.MODE_PRIVATE)
 				.getBoolean("translucentNavigation", false));
